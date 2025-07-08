@@ -1,0 +1,2466 @@
+ScreenManager:
+    MainScreen:
+        name: 'main'
+    HomeScreen:
+        name: 'home'
+    LoginScreen:
+        name: 'login'
+    SignUpScreen:
+        name: 'signup'
+    OtpScreen:
+        name: 'otp'
+    ResetPassScreen:
+        name: 'reset_pass'
+    ForgetPassScreen:
+        name: 'forgot_pass'
+    ProfileScreen:
+        name: "profile"
+    HistoryScreen:
+        name: 'history'
+    RecommendScreen:
+        name: 'recommend'
+    SearchBookScreen:
+        name: 'searchBook'
+    ProfileEditScreen:
+        name: 'profile_edit'
+    NotificationScreen:
+        name: 'notification'
+    BorrowBookScreen:
+        name: 'borrow_book'
+    ReturnBookScreen:
+        name: 'return_book'
+    RenewBookScreen:
+        name: 'renew_book'
+
+
+<MainScreen>:
+    MDFloatLayout:
+        Image:
+            source: 'assets\\logo.png'
+            size_hint: None, 0.9
+            width: 75
+            pos_hint: {'center_x': 0.1, 'center_y': 0.95}
+
+        Image:
+            source: 'assets\\img.png'
+            size_hint: None, 0.8
+            width: 400
+            pos_hint: {'center_x': 0.5, 'center_y': 0.8}
+
+        MDLabel:
+            text: "H e l l o !"
+            font_name: "BPoppins"
+            font_size: "23sp"
+            pos_hint: {'center_y': 0.53}
+            halign: "center"
+            color: rgba(0, 0, 59, 255)
+        MDLabel:
+            text: "Best place to read and learn from auther journey experiences"
+            font_name: "MPoppins"
+            font_size: "13sp"
+            size_hint_x: 0.85
+            pos_hint: {'center_x': 0.5,'center_y': 0.45}
+            halign: "center"
+            color: rgba(127, 127, 127, 255)
+        Button:
+            text: "Login"
+            size_hint: None, None
+            width: 350
+            height: 59
+            pos_hint: {'center_x': 0.5, 'center_y': 0.28}
+            background_color: 0,0,0,0
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction = "left"
+                root.manager.current = "login"
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 0, 231, 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [5]
+        Button:
+            text: "SignUP"
+            size_hint: None, None
+            width: 350
+            height: 59
+            pos_hint: {'center_x': 0.5, 'center_y': 0.19}
+            background_color: 0,0,0,0
+            color: rgba(52, 0, 231, 255)
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction = "left"
+                root.manager.current = "signup"
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 0, 231, 255)
+                Line:
+                    width: 1.2
+                    rounded_rectangle: self.x, self.y, self.width, self.height, 5,5,5,5,100
+
+
+
+
+<DrawerClickableItem@MDNavigationDrawerItem>
+<HomeScreen>:
+    MDFloatLayout:
+        md_bg_color: 1, 1, 1, 1
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: "54dp"
+            pos_hint: {"top": 1}
+            MDTopAppBar:
+                title: "LMS"
+                halign: 'center'
+                elevation: 10
+                left_action_items: [["menu", lambda x: nav_drawer.set_state('toggle')]]
+
+        MDBottomAppBar:
+            height: "62dp"
+            elevation: 10
+            MDActionBottomAppBarButton:
+                icon: "home"
+                pos_hint:{'center_x':0.15, 'center_y': 0.5}
+                on_press: root.manager.current = 'home'
+            MDActionBottomAppBarButton:
+                icon: "cart-outline"
+                pos_hint:{'center_x':0.38, 'center_y': 0.5}
+                on_press: root.manager.current = 'borrow_book'
+            MDActionBottomAppBarButton:
+                icon: "thumb-up-outline"
+                pos_hint:{'center_x':0.61, 'center_y': 0.5}
+                on_press: root.manager.current = 'recommend'
+            MDActionBottomAppBarButton:
+                icon: "history"
+                pos_hint:{'center_x':0.85, 'center_y': 0.5}
+                on_press:
+                    root.manager.current = 'history'
+                    app.book_history()
+
+
+        # Carousel at the top
+        Carousel:
+            id: carousel
+            size_hint_y: None
+            height: "205dp"
+            width: self.parent.width
+            pos_hint: {'top': .918}  # Adjust position to fit below the AppBar
+            loop: False
+            anim_type: 'in_out_quad'
+            anim_move_duration: 0.2
+            BoxLayout:
+                orientation: 'vertical'
+
+
+                Image:
+                    source: 'assets\\lib_img1.jpg'
+                    allow_stretch: True
+                    keep_ratio: False
+
+                    MDLabel:
+                        text: "Bajrangdas Lohiya Central Library"
+                        font_name: "BPoppins"
+                        font_size: "24sp"
+                        size_hint0: None, None
+                        bold: True
+                        width: self.parent.width
+                        padding: "12dp",0,0,"5dp"
+                        color: rgba(255, 255, 255, 255)
+
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                Image:
+                    source: 'assets\\Book_rack.jpg'
+                    allow_stretch: True
+                    keep_ratio: False
+
+                    MDLabel:
+                        text: "Vast Book Collection (80,000+)"
+                        font_name: "BPoppins"
+                        font_size: "24sp"
+                        size_hint0: None, None
+                        width: self.parent.width
+                        padding: "12dp",0,0,"5dp"
+                        color: rgba(255, 255, 255, 255)
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                Image:
+                    source: 'assets\\reading_space.jpg'
+                    allow_stretch: True
+                    keep_ratio: False
+
+                    MDLabel:
+                        text: "Quiet Room"
+                        font_name: "BPoppins"
+                        font_size: "24sp"
+                        size_hint0: None, None
+                        width: self.parent.width
+                        padding: "12dp",0,0,"5dp"
+                        color: rgba(255, 255, 255, 255)
+
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                Image:
+                    source: 'assets\\journal_section.jpg'
+                    allow_stretch: True
+                    keep_ratio: False
+
+                    MDLabel:
+                        text: "National & International Journals & Research Paper"
+                        font_name: "BPoppins"
+                        font_size: "24sp"
+                        size_hint0: None, None
+                        width: self.parent.width
+                        padding: "12dp",0,0,"5dp"
+                        color: rgba(255, 255, 255, 255)
+
+
+
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                Image:
+                    source: 'assets\\lib_img2.jpg'
+                    allow_stretch: True
+                    keep_ratio: False
+
+                    MDLabel:
+                        text: "Reference Section"
+                        font_name: "BPoppins"
+                        font_size: "24sp"
+                        size_hint0: None, None
+                        width: self.parent.width
+                        padding: "12dp",0,0,"5dp"
+                        color: rgba(255, 255, 255, 255)
+
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                Image:
+                    source: 'assets\\lib_img3.jpg'
+                    allow_stretch: True
+                    keep_ratio: False
+
+                    MDLabel:
+                        text: "Career and Test Preparation Section:"
+                        font_name: "BPoppins"
+                        font_size: "24sp"
+                        size_hint0: None, None
+                        width: self.parent.width
+                        padding: "12dp",0,0,"5dp"
+                        color: rgba(255, 255, 255, 255)
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                Image:
+                    source: 'assets\\pc1.jpg'
+                    allow_stretch: True
+                    keep_ratio: False
+
+                    MDLabel:
+                        text: "Online E-Resources"
+                        font_name: "BPoppins"
+                        font_size: "24sp"
+                        size_hint0: None, None
+                        width: self.parent.width
+                        padding: "12dp",0,0,"5dp"
+                        color: rgba(255, 255, 255, 255)
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                Image:
+                    source: 'assets\\keyboard.jpg'
+                    allow_stretch: True
+                    keep_ratio: False
+
+                    MDLabel:
+                        text: "iThenticate Software for Plagiarism checking"
+                        font_name: "BPoppins"
+                        font_size: "24sp"
+                        size_hint0: None, None
+                        width: self.parent.width
+                        padding: "12dp",0,0,"5dp"
+                        color: rgba(255, 255, 255, 255)
+
+        # Navigation Buttons Positioned Over the Carousel
+        MDIconButton:
+            icon: "arrow-left-thin-circle-outline"
+            pos_hint: {'x': 0.025, 'center_y': 0.7705}  # Adjusted position
+            size_hint: None, None
+            size: "48dp", "48dp"
+            user_font_size: "30sp"
+            theme_text_color: "Custom"
+            text_color: (1,1,1,1)
+            on_release: carousel.load_previous()
+            disabled: carousel.index == 0
+
+        MDIconButton:
+            icon: "arrow-right-thin-circle-outline"
+            pos_hint: {'right': 0.9725, 'center_y': 0.7705}
+            size_hint: None, None
+            size: "48dp", "48dp"
+            user_font_size: "30sp"
+            theme_text_color: "Custom"
+            text_color: (1,1,1,1)
+            on_release: carousel.load_next()
+            disabled: carousel.index == len(carousel.slides) - 1
+
+        ScrollView:
+            size_hint: 1, None
+            height: self.parent.height - dp(324)
+            pos_hint: {'top':0.615}
+            MDList:
+                id : image_label_grid
+                padding: "20dp", "40dp", "12dp", "17dp"
+                spacing: "50dp"
+                MDLabel:
+                    text: "Bajrangdas Lohiya Central Library"
+                    font_name: "BPoppins"
+                    font_size: "24sp"
+                    halign: 'center'
+                    bold: True
+                    color: rgba(0, 0, 59, 255)
+                MDCard:
+                    size_hint: None, None
+                    width: self.parent.width-50 # Set the size of the box
+                    height: "225dp"
+                    pos_hint: {"center_x": 0.5, "center_y": 0.3}  # Center the box
+                    elevation: 5  # Add shadow (elevation)
+                    padding: "20dp","5dp","5dp","10dp"
+                    spacing: "10dp"
+                    orientation: 'vertical'
+                    MDLabel:
+                        text: "The main objective of Bajrangdas Lohiya Central Library, established in the year 1984, is to support the educational & research programmes of the Institute by providing physical and intellectual access to information consistent with the present and anticipated educational and research functions of the Institute."
+                        font_name: "MPoppins"
+                        font_size: "13sp"
+                        size_hint_x: 1
+                        pos_hint: {'center_x': 0.5,'center_y': 0.3}
+                        color: rgba(127, 127, 127, 255)
+
+                    MDRaisedButton:
+                        text: "know more..."
+                        size_hint: None, None
+                        size: "100dp", "25dp"
+                        pos_hint: {"center_x": 0.5}
+                        on_release: root.manager.current= "home"
+                MDLabel:
+                    text: "Where is the Book Kept?"
+                    font_name: "BPoppins"
+                    font_size: "24sp"
+                    pos_hint: {'center_x': 0.45}
+                    halign: 'center'
+                    bold: True
+                    color: rgba(0, 0, 0, 255)
+                MDCard:
+                    size_hint: None, None
+                    width: self.parent.width-50 # Set the size of the box
+                    height: "225dp"
+                    pos_hint: {"center_x": 0.5, "center_y": 0.3}  # Center the box
+                    elevation: 5  # Add shadow (elevation)
+                    padding: "20dp","10dp","5dp","10dp"
+                    spacing: "10dp"
+                    orientation: 'vertical'
+                    MDTextField:
+                        id: book_pos_name
+                        text: ""
+                        hint_text: "Enter Book Name.."
+                        font_name: "MPoppins"
+                        font_size: "15sp"
+                        helper_text_mode: "on_focus"
+                        icon_right: "alphabetical"
+                        icon_color: app.theme_cls.primary_color
+                        pos_hint: {"center_x": 0.475, "center_y": 0.8}
+                        size_hint_x: None
+                        width: 335
+                        on_touch_down: app.change_cursor(True)
+                        on_touch_up: app.change_cursor(False)
+                        canvas.before:
+                            Color:
+                                rgb: rgba(127, 127, 127, 255)
+                            Line:
+                                width: 0.5
+                                rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+
+                    MDRaisedButton:
+                        text: "Find"
+                        size_hint: None, None
+                        size: "150dp", "25dp"
+                        pos_hint: {"center_x": 0.5}
+                        on_release: app.where_is_book()
+
+                    MDLabel:
+                        id : book_pos
+                        text: "Example.,Book Position is 1L42 , 1 represent row no., L represent left side of row, 4 represent rack/shelves no. ,2 represent shelves step no."
+                        halign: 'center'
+                        bold: True
+                        font_name: "BPoppins"
+                        font_size: "13sp"
+                        size_hint_x: 1
+                        color: rgba(127, 127, 127, 255)
+
+        Widget:
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            size_hint: None, 1
+            width:Window.size[1]-425
+            radius: [0,0]
+            MDNavigationDrawerMenu:
+                MDNavigationDrawerHeader:
+                    id : user
+                    title: "Welcome! TeenAger"
+                    text: "Make your Bright future with us..!"
+                    text_color: "#6c7272"
+                    text_font_size: '13sp'
+                    title_color: "#00f0ff"
+                    title_font_size: '25sp'
+                    spacing: '4dp'
+                    padding: "12dp", 0, 0, "5dp"
+
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerLabel:
+                    text: "Profile"
+                TwoLineIconListItem:
+                    id : user
+                    text: ""
+                    secondary_text:"View profile"
+                    divider:None
+                    spacing: '4dp'
+                    bold: True
+                    padding: "1dp",0,0,"1dp"
+                    on_touch_down: app.change_cursor(True)
+                    on_touch_up: app.change_cursor(False)
+                    on_release:
+                        root.manager.transition.direction = "left"
+                        nav_drawer.set_state('close')
+                        root.manager.current = "profile"
+                    IconLeftWidget:
+                        MDFloatingActionButton:
+                            icon: "account"
+                            size_hint: 1.5, 1.5
+
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerLabel:
+                    text: "Menu"
+
+                DrawerClickableItem:
+                    icon: "home-outline"
+                    text: "Home"
+                    on_touch_down: app.change_cursor(True)
+                    on_touch_up: app.change_cursor(False)
+                    on_release:
+                        root.manager.transition.direction = "left"
+                        nav_drawer.set_state('close')
+                        root.manager.current = "home"
+
+                DrawerClickableItem:
+                    icon: "bell-outline"
+                    right_text: '+99'
+                    text_right_color: "#4a4930"
+                    text: "Notification"
+                    on_touch_down: app.change_cursor(True)
+                    on_touch_up: app.change_cursor(False)
+                    on_release:
+                        root.manager.transition.direction = "left"
+                        nav_drawer.set_state('close')
+                        root.manager.current = "home"
+
+                DrawerClickableItem:
+                    icon: 'book-search-outline'
+                    text: "Search Book"
+                    on_touch_down: app.change_cursor(True)
+                    on_touch_up: app.change_cursor(False)
+                    on_release:
+                        root.manager.transition.direction = "left"
+                        nav_drawer.set_state('close')
+                        app.data_load()
+                        root.manager.current = "searchBook"
+
+                DrawerClickableItem:
+                    icon: 'thumb-up-outline'
+                    text: "Recommendations"
+                    on_touch_down: app.change_cursor(True)
+                    on_touch_up: app.change_cursor(False)
+                    on_release:
+                        root.manager.transition.direction = "left"
+                        nav_drawer.set_state('close')
+                        root.manager.current = "recommend"
+
+                DrawerClickableItem:
+                    icon: 'cart-outline'
+                    text: "Borrow Book"
+                    on_touch_down: app.change_cursor(True)
+                    on_touch_up: app.change_cursor(False)
+                    on_release:
+                        root.manager.transition.direction = "left"
+                        nav_drawer.set_state('close')
+                        app.clear_text()
+                        root.manager.current = "borrow_book"
+
+                DrawerClickableItem:
+                    icon: 'keyboard-return'
+                    text: "Return Book"
+                    on_touch_down: app.change_cursor(True)
+                    on_touch_up: app.change_cursor(False)
+                    on_release:
+                        root.manager.transition.direction = "left"
+                        nav_drawer.set_state('close')
+                        app.return_book("Return")
+                        root.manager.current = "return_book"
+
+                DrawerClickableItem:
+                    icon: 'autorenew'
+                    text: "Re-New Book"
+                    on_touch_down: app.change_cursor(True)
+                    on_touch_up: app.change_cursor(False)
+                    on_release:
+                        root.manager.transition.direction = "left"
+                        nav_drawer.set_state('close')
+                        app.return_book("Renew")
+                        root.manager.current = "renew_book"
+
+                DrawerClickableItem:
+                    icon: 'history'
+                    text: "History"
+                    on_touch_down: app.change_cursor(True)
+                    on_touch_up: app.change_cursor(False)
+                    on_release:
+                        root.manager.transition.direction = "left"
+                        nav_drawer.set_state('close')
+                        app.book_history()
+                        root.manager.current = "history"
+
+                DrawerClickableItem:
+                    icon: 'account-edit-outline'
+                    text: "Edit Profile"
+                    on_touch_down: app.change_cursor(True)
+                    on_touch_up: app.change_cursor(False)
+                    on_release:
+                        root.manager.transition.direction = "left"
+                        nav_drawer.set_state('close')
+                        root.manager.current = "profile_edit"
+
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerLabel:
+                    text: "Help"
+
+                DrawerClickableItem:
+                    icon: 'information-outline'
+                    text: "About Us"
+                    on_touch_down: app.change_cursor(True)
+                    on_touch_up: app.change_cursor(False)
+                    on_release:
+                        root.manager.transition.direction = "left"
+                        nav_drawer.set_state('close')
+                        root.manager.current = "home"
+
+                DrawerClickableItem:
+                    icon: 'message-alert-outline'
+                    text: "Feedback"
+                    on_touch_down: app.change_cursor(True)
+                    on_touch_up: app.change_cursor(False)
+                    on_release:
+                        root.manager.transition.direction = "left"
+                        nav_drawer.set_state('close')
+                        root.manager.current = "home"
+
+                MDNavigationDrawerDivider:
+
+                DrawerClickableItem:
+                    icon: 'logout'
+                    text: "Logout"
+                    on_touch_down: app.change_cursor(True)
+                    on_touch_up: app.change_cursor(False)
+                    on_release:
+                        root.manager.transition.direction = "down"
+                        nav_drawer.set_state('close')
+                        root.manager.current = "main"
+                        app.clear_text()
+
+
+<LoginScreen>:
+    Image:
+        source: "assets\\bg_img.jpg" # Path to your gradient
+        size: self.size
+        allow_stretch: True
+        keep_ratio: False
+    MDFloatLayout:
+        mg_bd_color: 1,1,1,1
+
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {'center_y': 0.95}
+            user_font_size: "30sp"
+            theme_text_color: "Custom"
+            text_color: rgba(26,24,58,255)
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction= 'right'
+                root.manager.current= "main"
+                app.on_press_back_arrow()
+
+        MDLabel:
+            text: "W e l c o m e !"
+            font_name: "BPoppins"
+            font_size: "26sp"
+            size_hint_x: None
+            width: 350
+            pos_hint: {'center_x': 0.5,'center_y': 0.85}
+            color: rgba(0, 0, 59, 255)
+
+        MDLabel:
+            text: "Sign in to Continue..."
+            font_name: "MPoppins"
+            size_hint_x: None
+            width: 350
+            font_size: "18sp"
+            pos_hint: {'center_x': 0.5,'center_y': 0.79}
+            color: rgba(135, 133, 193, 255)
+
+        MDTextField:
+            id: username
+            text: "12410042"
+            hint_text: "Enter PRN"
+            font_name: "MPoppins"
+            helper_text: "PRN of 8 digits starting with 1 2 ......only*"
+            helper_text_mode: "on_focus"
+            icon_right: "dialpad"
+            icon_color: app.theme_cls.primary_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.63}
+            size_hint_x: None
+            width: 335
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+
+        MDRelativeLayout:
+            size: self.width, self.height
+
+            MDTextField:
+                id : password
+                text: "India"
+                font_name: "MPoppins"
+                font_size: "14sp"
+                hint_text: "Enter Password"
+                helper_text: "must contain at least one 'a' , 'A' , '@' & '0'"
+                helper_text_mode: "on_focus"
+                pos_hint: {"center_x": 0.5, "center_y": 0.53}
+                size_hint_x: None
+                width: 335
+                password:True
+                on_focus: app.focus_text_field(icon, self.focus, "password")
+                on_touch_down: app.change_cursor(True)
+                on_touch_up: app.change_cursor(False)
+
+            MDIconButton:
+                id: icon
+                icon: 'eye-off'
+                theme_icon_color: "Custom"
+                icon_color: rgba(162, 169, 188, 255)
+                size_hint: None, None
+                size: dp(24), dp(24)
+                pos: password.x + password.width - self.width+dp(4), password.center_y - self.height / 2+dp(5)
+                on_touch_down: app.change_cursor(True)
+                on_touch_up: app.change_cursor(False)
+                on_release:
+                    app.toggle_password_visibility(password, self)
+                    password.focus=True
+
+        Button:
+            text: "LOGIN"
+            font_name: "BPoppins"
+            size_hint: None, None
+            width: 300
+            height: 59
+            pos_hint: {'center_x': 0.5, 'center_y': 0.37}
+            background_color: 0,0,0,0
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction = "up"
+                app.on_start()
+                app.verify(False)
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 0, 231, 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [5]
+
+        MDTextButton:
+            text: "Forgot Password?"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.31}
+            color: rgba(68,78,132,255)
+            font_name: "BPoppins"
+            font_size: '13sp'
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction= "down"
+                root.manager.current="forgot_pass"
+        MDLabel:
+            text: "or"
+            color: rgba(52, 0, 231, 255)
+            pos_hint: {'center_y': 0.25}
+            font_name: "BPoppins"
+            font_size: '13sp'
+            halign: 'center'
+
+        MDFloatLayout:
+            md_bg_color: rgba(178, 178, 178, 255)
+            size_hint: 0.35, 0.002
+            pos_hint: {'center_x': 0.27, 'center_y': .248}
+        MDFloatLayout:
+            md_bg_color: rgba(178, 178, 178, 255)
+            size_hint: 0.35, 0.002
+            pos_hint: {'center_x': 0.73, 'center_y': .248}
+
+        MDTextButton:
+            id: prn_mode
+            text: 'VIT Email Login'
+            font_name: 'BPoppins'
+            font_size: '13sp'
+            color: rgba(135, 133, 193, 255)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.19}
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                app.login_mode(username, self)
+
+        MDGridLayout:
+            cols: 1
+            size_hint: 0.2, 0.07
+            pos_hint: {'center_x': 0.5, 'center_y': 0.15}
+            Image:
+                source: 'assets\\google.png'
+
+
+        MDTextButton:
+            text: "Don't have an account? Sign up"
+            font_name: 'BPoppins'
+            halign: 'center'
+            font_size: '11sp'
+            color: rgba(52, 0, 231, 255)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.05}
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction = "left"
+                root.manager.current="signup"
+
+<SignUpScreen>:
+    name: "signup"
+    MDFloatLayout:
+        mg_bd_color: 1,1,1,1
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {'center_y': 0.95}
+            user_font_size: "30sp"
+            theme_text_color: "Custom"
+            text_color: rgba(26,24,58,255)
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction= 'right'
+                root.manager.current= "main"
+        MDLabel:
+            text: "H i!"
+            font_name: "RPac"
+            font_size: "26sp"
+            size_hint_x: None
+            width: 350
+            pos_hint: {'center_x': 0.5,'center_y': 0.9}
+            color: rgba(0, 0, 59, 255)
+
+        MDLabel:
+            text: "Create a new account"
+            font_name: "BPoppins"
+            font_size: "20sp"
+            size_hint_x: None
+            width: 350
+            pos_hint: {'center_x': 0.5,'center_y': 0.85}
+            color: app.theme_cls.primary_color
+
+
+        ScrollView:
+            size_hint: 1, None
+            height: self.parent.height - dp(250)
+            pos_hint: {'top':0.81}
+            MDList:
+                padding: "12dp", "10dp", "12dp", "3dp"
+                spacing: "10dp"
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "5dp"
+                    MDLabel:
+                        text: "Name"
+                        color: rgba(0, 0, 0, 255)
+                        font_name: "BPoppins"
+                        font_size: '15sp'
+                        size_hint_x: None
+                        width: 335
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "60dp"
+                    MDTextField:
+                        id: signup_name
+                        hint_text: "Enter Name*"
+                        font_name: "MPoppins"
+                        font_size: "15sp"
+                        helper_text: "Provide your fullname"
+                        helper_text_mode: "on_focus"
+                        icon_right: "alphabetical"
+                        icon_color: app.theme_cls.primary_color
+                        size_hint_x: None
+                        width: 335
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        on_touch_down: app.change_cursor(True)
+                        on_touch_up: app.change_cursor(False)
+                        canvas.before:
+                            Color:
+                                rgb: rgba(127, 127, 127, 255)
+                            Line:
+                                width: 0.5
+                                rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "5dp"
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "5dp"
+                    MDLabel:
+                        text: "PRN"
+                        color: rgba(0, 0, 0, 255)
+                        font_name: "BPoppins"
+                        font_size: '15sp'
+                        size_hint_x: None
+                        width: 335
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "60dp"
+                    MDTextField:
+                        id: signup_prn
+                        hint_text: "Provide your PRN*"
+                        font_name: "MPoppins"
+                        font_size: "15sp"
+                        helper_text: "PRN of 8 digits starting with 1 2 ......only*"
+                        helper_text_mode: "on_focus"
+                        icon_right: "dialpad"
+                        input_filter: 'int'
+                        required_length: 8
+                        icon_color: app.theme_cls.primary_color
+                        size_hint_x: None
+                        width: 335
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        on_touch_down: app.change_cursor(True)
+                        on_touch_up: app.change_cursor(False)
+                        canvas.before:
+                            Color:
+                                rgb: rgba(127, 127, 127, 255)
+                            Line:
+                                width: 0.5
+                                rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "5dp"
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "5dp"
+                    MDLabel:
+                        text: "Email"
+                        color: rgba(0, 0, 0, 255)
+                        font_name: "BPoppins"
+                        font_size: '15sp'
+                        size_hint_x: None
+                        width: 335
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "60dp"
+                    MDTextField:
+                        id: signup_email
+                        hint_text: "Provide Email-id*"
+                        font_name: "MPoppins"
+                        font_size: "15sp"
+                        helper_text: "Provide your @vit.edu email-id only*"
+                        helper_text_mode: "on_focus"
+                        icon_right: "email-arrow-left-outline"
+                        min_text_length: 11
+                        icon_color: app.theme_cls.primary_color
+                        size_hint_x: None
+                        width: 335
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        on_touch_down: app.change_cursor(True)
+                        on_touch_up: app.change_cursor(False)
+                        canvas.before:
+                            Color:
+                                rgb: rgba(127, 127, 127, 255)
+                            Line:
+                                width: 0.5
+                                rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "5dp"
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "5dp"
+                    MDLabel:
+                        text: "Phone Number"
+                        color: rgba(0, 0, 0, 255)
+                        font_name: "BPoppins"
+                        font_size: '15sp'
+                        size_hint_x: None
+                        width: 335
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "60dp"
+                    MDTextField:
+                        id: signup_no
+                        hint_text: "Enter WhatsApp Number*"
+                        font_name: "MPoppins"
+                        font_size: "15sp"
+                        helper_text: "Provide your Whatsapp no. only*"
+                        helper_text_mode: "on_focus"
+                        icon_right: "whatsapp"
+                        icon_color: app.theme_cls.primary_color
+                        input_filter: 'int'
+                        max_text_length: 10
+                        size_hint_x: None
+                        width: 335
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        on_touch_down: app.change_cursor(True)
+                        on_touch_up: app.change_cursor(False)
+                        canvas.before:
+                            Color:
+                                rgb: rgba(127, 127, 127, 255)
+                            Line:
+                                width: 0.5
+                                rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+
+
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "5dp"
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "5dp"
+                    MDLabel:
+                        text: "Password"
+                        color: rgba(0, 0, 0, 255)
+                        font_name: "BPoppins"
+                        font_size: '15sp'
+                        size_hint_x: None
+                        width: 335
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        spacing: "10dp"
+
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "60dp"
+                    MDRelativeLayout:
+                        size: self.width, self.height
+                        MDTextField:
+                            id : signup_pass
+                            font_name: "MPoppins"
+                            font_size: "15sp"
+                            hint_text: "Create Password*"
+                            helper_text: "must contain 8 char* with at least one 'a' , 'A' , '@' & '0'"
+                            helper_text_mode: "on_focus"
+                            password:True
+                            size_hint_x: None
+                            width: 335
+                            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                            on_focus: app.focus_text_field(icon, self.focus, "sign_pass")
+                            on_touch_down: app.change_cursor(True)
+                            on_touch_up: app.change_cursor(False)
+                            canvas.before:
+                                Color:
+                                    rgb: rgba(127, 127, 127, 255)
+                                Line:
+                                    width: 0.5
+                                    rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+
+                        MDIconButton:
+                            id: icon
+                            icon: 'eye-off'
+                            theme_icon_color: "Custom"
+                            icon_color: rgba(217, 217, 217, 255)
+                            size_hint: None, None
+                            size: dp(24), dp(24)
+                            pos: signup_pass.x + signup_pass.width - self.width+dp(4), signup_pass.center_y - self.height / 2+dp(5)
+                            on_touch_down: app.change_cursor(True)
+                            on_touch_up: app.change_cursor(False)
+                            on_release:
+                                app.toggle_password_visibility(signup_pass, self)
+                                signup_pass.focus=True
+
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "5dp"
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "5dp"
+                    MDLabel:
+                        text: "Branch"
+                        color: rgba(0, 0, 0, 255)
+                        font_name: "BPoppins"
+                        font_size: '15sp'
+                        size_hint_x: None
+                        width: 335
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "60dp"
+                    MDTextField:
+                        id: signup_branch
+                        hint_text: "Branch*"
+                        font_name: "MPoppins"
+                        font_size: "15sp"
+                        helper_text: "Provide your Branch"
+                        helper_text_mode: "on_focus"
+                        icon_right: "source-branch"
+                        min_text_length: 11
+                        icon_color: app.theme_cls.primary_color
+                        size_hint_x: None
+                        width: 335
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        on_touch_down: app.change_cursor(True)
+                        on_touch_up: app.change_cursor(False)
+                        canvas.before:
+                            Color:
+                                rgb: rgba(127, 127, 127, 255)
+                            Line:
+                                width: 0.5
+                                rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "5dp"
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "5dp"
+                    MDLabel:
+                        text: "Semester"
+                        color: rgba(0, 0, 0, 255)
+                        font_name: "BPoppins"
+                        font_size: '15sp'
+                        size_hint_x: None
+                        width: 335
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+
+                MDRelativeLayout:
+                    size_hint_y: None
+                    height: "60dp"
+                    MDTextField:
+                        id: signup_sem
+                        hint_text: "Semester*"
+                        font_name: "MPoppins"
+                        font_size: "15sp"
+                        helper_text: "Provide your Branch"
+                        helper_text_mode: "on_focus"
+                        icon_right: "roman-numeral-2"
+                        min_text_length: 11
+                        icon_color: app.theme_cls.primary_color
+                        size_hint_x: None
+                        width: 335
+                        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                        on_touch_down: app.change_cursor(True)
+                        on_touch_up: app.change_cursor(False)
+                        canvas.before:
+                            Color:
+                                rgb: rgba(127, 127, 127, 255)
+                            Line:
+                                width: 0.5
+                                rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+
+        MDRelativeLayout:
+            size_hint_y: None
+            height: "65dp"
+            Button:
+                text: "Get OTP"
+                font_name: "BPoppins"
+                size_hint: None, None
+                width: 300
+                height: 59
+                pos_hint: {'center_x': 0.5, 'center_y': 1}
+                background_color: 0,0,0,0
+                on_touch_down: app.change_cursor(True)
+                on_touch_up: app.change_cursor(False)
+                on_release:
+                    root.manager.transition.direction = "up"
+                    app.otp_button_fun(False)
+                    app.on_start()
+                    app.check_signup(signup_name.text, signup_prn.text, signup_email.text, signup_no.text, signup_pass.text, signup_branch.text, signup_sem.text)
+                canvas.before:
+                    Color:
+                        rgb: rgba(52, 0, 231, 255)
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [10]
+
+<ForgetPassScreen>:
+
+    MDFloatLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {'center_y': 0.95}
+            user_font_size: "30sp"
+            theme_text_color: "Custom"
+            text_color: rgba(26,24,58,255)
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction= 'up'
+                root.manager.current= "login"
+                app.on_press_back_arrow()
+
+        MDLabel:
+            text: "Forget Your Password?"
+            font_name: "BPoppins"
+            font_size: "26sp"
+            pos_hint: {'center_x': 0.55,'center_y': 0.85}
+            color: rgba(0, 0, 59, 255)
+
+
+        MDLabel:
+            text: "That's Okay. It happens!"
+            font_name: "MPoppins"
+            font_size: "18sp"
+            pos_hint: {'center_x': 0.55,'center_y': 0.8}
+            color: rgba(135, 133, 193, 255)
+
+        MDLabel:
+            text: "Provide your Whatsapp No. for reset Password "
+            font_name: "MPoppins"
+            font_size: "13sp"
+            size_hint:0.91 , 0.8
+            pos_hint: {'center_x': 0.55,'center_y': 0.7}
+            color: rgba(135, 133, 193, 255)
+
+
+        MDTextField:
+            id: forgotPass_no
+            hint_text: "Enter WhatsApp Number"
+            font_name: "MPoppins"
+            helper_text: "or click on for login through username"
+            helper_text_mode: "on_focus"
+            icon_right: "dialpad"
+            input_filter: 'int'
+            min_text_length: 10
+            max_text_length:10
+            icon_color: app.theme_cls.primary_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.6}
+            size_hint_x: None
+            width: 335
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+
+        Button:
+            text: "Get OTP"
+            font_name: "BPoppins"
+            size_hint: None, 0.065
+            width: 350
+            pos_hint: {'center_x': 0.5, 'center_y': 0.45}
+            background_color: 0,0,0,0
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                app.on_start()
+                root.manager.transition.direction = "up"
+                app.otp_button_fun("True")
+                app.verify_no()
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 0, 231, 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [5]
+
+<OtpScreen>:
+    MDFloatLayout:
+        mg_bd_color: 1,1,1,1
+        MDIconButton:
+            id : back_button
+            icon: "arrow-left"
+            pos_hint: {'center_y': 0.95}
+            user_font_size: "30sp"
+            theme_text_color: "Custom"
+            text_color: rgba(26,24,58,255)
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                app.otp_back_arrow_fun()
+                root.manager.transition.direction= 'down'
+
+
+        MDLabel:
+            text: "V e r i f i n g  Y o u...!"
+            font_name: "BPoppins"
+            font_size: "26sp"
+            pos_hint: {'center_x': 0.55,'center_y': 0.75}
+
+            color: rgba(0, 0, 59, 255)
+
+
+
+
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'center'
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: None, None
+                size: self.minimum_size
+                MDLabel:
+                    text: "One time password (OTP) has been shared on your Whatsapp number. Please check and enter here.."
+                    font_name: "MPoppins"
+                    font_size: "13sp"
+                    size_hint_x: .85
+                    pos_hint: {'center_x': 0.5,'center_y': 1}
+                    color: rgba(135, 133, 193, 255)
+
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    spacing: dp(35)
+                    padding: dp(50)
+                    size_hint: None, None
+                    size: self.minimum_size
+
+                    MDTextField:
+                        id: d1
+                        hint_text: ""
+                        font_name: "MPoppins"
+                        font_size: "25sp"
+                        pos_hint: {"center_x": 0.2, "center_y": 0.6}
+                        size_hint_x: None
+                        width: 37.5
+                        multiline: False
+                        max_text_length: 1
+                        input_filter: 'int'
+                        halign : 'center'
+                        on_touch_down: app.change_cursor(True)
+                        on_touch_up: app.change_cursor(False)
+                        padding: 10
+                        spacing: 10
+                        canvas.before:
+                            Color:
+                                rgb: rgba(127, 127, 127, 255)
+                            Line:
+                                width: 0.5
+                                rounded_rectangle: self.x-12, self.y+20, self.width+25, self.height-25, 10,10,10,10,100
+                    MDTextField:
+                        id: d2
+                        hint_text: ""
+                        font_name: "MPoppins"
+                        font_size: "25sp"
+                        pos_hint: {"center_x": 0.4, "center_y": 0.6}
+                        size_hint_x: None
+                        width: 37.5
+                        multiline: False
+                        max_text_length: 1
+                        input_filter: 'int'
+                        halign : 'center'
+                        on_touch_down: app.change_cursor(True)
+                        padding: 10
+                        spacing: 10
+                        on_touch_up: app.change_cursor(False)
+                        canvas.before:
+                            Color:
+                                rgb: rgba(127, 127, 127, 255)
+                            Line:
+                                width: 0.5
+                                rounded_rectangle: self.x-12, self.y+20, self.width+25, self.height-25, 10,10,10,10,100
+                    MDTextField:
+                        id: d3
+                        hint_text: ""
+                        font_name: "MPoppins"
+                        font_size: "25sp"
+                        pos_hint: {"center_x": 0.6, "center_y": 0.6}
+                        size_hint_x: None
+                        width: 37.5
+                        multiline: False
+                        max_text_length: 1
+                        input_filter: 'int'
+                        halign : 'center'
+                        on_touch_down: app.change_cursor(True)
+                        on_touch_up: app.change_cursor(False)
+                        padding: 10
+                        spacing: 10
+                        canvas.before:
+                            Color:
+                                rgb: rgba(127, 127, 127, 255)
+                            Line:
+                                width: 0.5
+                                rounded_rectangle: self.x-12, self.y+20, self.width+25, self.height-25, 10,10,10,10,100
+
+                    MDTextField:
+                        id: d4
+                        hint_text: ""
+                        font_name: "MPoppins"
+                        font_size: "26sp"
+                        pos_hint: {"center_x": 0.8, "center_y": 0.6}
+                        size_hint_x: None
+                        width: 37.5
+                        multiline: False
+                        max_text_length: 1
+                        input_filter: 'int'
+                        halign : 'center'
+                        on_touch_down: app.change_cursor(True)
+                        on_touch_up: app.change_cursor(False)
+                        padding: 10
+                        spacing: 10
+                        canvas.before:
+                            Color:
+                                rgb: rgba(127, 127, 127, 255)
+                            Line:
+                                width: 0.5
+                                rounded_rectangle: self.x-12, self.y+20, self.width+25, self.height-25, 10,10,10,10,100
+
+        Button:
+            id: otp_button
+            text: "SignUp"
+            font_name: "BPoppins"
+            size_hint: 0.66, 0.065
+            pos_hint: {'center_x': 0.5, 'center_y': 0.07}
+            background_color: 0,0,0,0
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction = "up"
+                app.on_start()
+                app.verify_otp(d1.text, d2.text,d3.text,d4.text, self.text)
+
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 0, 231, 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [5]
+
+
+<ResetPassScreen>:
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+
+
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {'center_y': 0.95}
+            user_font_size: "30sp"
+            theme_text_color: "Custom"
+            text_color: rgba(26,24,58,255)
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction= 'down'
+                root.manager.current= "main"
+                app.on_press_back_arrow()
+
+        MDLabel:
+            text: "Reset Password!"
+            font_name: "BPoppins"
+            font_size: "26sp"
+            pos_hint: {'center_x': 0.6,'center_y': 0.85}
+            color: rgba(0, 0, 59, 255)
+
+        MDRelativeLayout:
+            size: self.width, self.height
+            MDTextField:
+                id : new_pass
+                font_name: "MPoppins"
+                font_size: "15sp"
+                hint_text: "New Password"
+                helper_text: "must contain 8 char* with at least one 'a' , 'A' , '@' & '0'"
+                helper_text_mode: "on_focus"
+                pos_hint: {"center_x": 0.5, "center_y": 0.63}
+                size_hint_x: None
+                min_text_length: 8
+                width: 335
+                password:True
+                on_focus: app.focus_text_field(icon, self.focus, "sign_pass")
+                on_touch_down: app.change_cursor(True)
+                on_touch_up: app.change_cursor(False)
+                canvas.before:
+                    Color:
+                        rgb: rgba(127, 127, 127, 255)
+                    Line:
+                        width: 0.5
+                        rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+
+            MDIconButton:
+                id: icon
+                icon: 'eye-off'
+                theme_icon_color: "Custom"
+                icon_color: rgba(210, 210, 210, 255)
+                size_hint: None, None
+                size: dp(24), dp(24)
+                pos: new_pass.x + new_pass.width - self.width + dp(4), new_pass.center_y - self.height / 2 + dp(5)
+                on_touch_down: app.change_cursor(True)
+                on_touch_up: app.change_cursor(False)
+                on_release:
+                    app.toggle_password_visibility(new_pass, self)
+                    new_pass.focus=True
+        MDRelativeLayout:
+            size: self.width, self.height
+            MDTextField:
+                id : new_pass1
+                font_name: "MPoppins"
+                font_size: "15sp"
+                hint_text: "Re-enter Password"
+                helper_text: "must contain 8 char* with at least one 'a' , 'A' , '@' & '0'"
+                helper_text_mode: "on_focus"
+                pos_hint: {"center_x": 0.5, "center_y": 0.53}
+                size_hint_x: None
+                min_text_length: 8
+                width: 335
+                password:True
+                on_focus: app.focus_text_field(icon1, self.focus)
+                on_touch_down: app.change_cursor(True)
+                on_touch_up: app.change_cursor(False)
+                canvas.before:
+                    Color:
+                        rgb: rgba(127, 127, 127, 255)
+                    Line:
+                        width: 0.5
+                        rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+
+
+            MDIconButton:
+                id: icon1
+                icon: 'eye-off'
+                theme_icon_color: "Custom"
+                icon_color: rgba(210, 210, 210, 255)
+                size_hint: None, None
+                size: dp(24), dp(24)
+                pos: new_pass1.x + new_pass1.width - self.width+dp(4), new_pass1.center_y - self.height / 2+dp(5)
+                on_touch_down: app.change_cursor(True)
+                on_touch_up: app.change_cursor(False)
+                on_release:
+                    app.toggle_password_visibility(new_pass1, self)
+                    new_pass1.focus=True
+
+        Button:
+            text: "Change Password"
+            font_name: "BPoppins"
+            size_hint:None, None
+            width: 300
+            height: 59
+            pos_hint: {'center_x': 0.5, 'center_y': 0.37}
+            background_color: 0,0,0,0
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction = "up"
+                app.reset_password()
+                app.on_start()
+
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 0, 231, 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [5]
+
+
+<ProfileScreen>:
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+        spacing: '5dp'
+        BoxLayout:
+            orientation: 'vertical'
+            MDTopAppBar:
+                title: "My Profile"
+                font_style: 'H5'
+                specific_text_color: [0, 0, 0, 1]
+                halign: 'center'
+                elevation: 0
+                md_bg_color: [1,1,1,1]
+                spacing: "2dp"
+                MDLabel:
+                    id: profile_name
+                    text: ""
+                    halign: 'center'
+
+            Widget:
+
+        MDBottomAppBar:
+            height: "62dp"
+            elevation: 10
+            MDActionBottomAppBarButton:
+                icon: "home"
+                pos_hint:{'center_x':0.15, 'center_y': 0.5}
+                on_press: root.manager.current = 'home'
+            MDActionBottomAppBarButton:
+                icon: "cart-outline"
+                pos_hint:{'center_x':0.38, 'center_y': 0.5}
+                on_press: root.manager.current = 'borrow_book'
+            MDActionBottomAppBarButton:
+                icon: "thumb-up-outline"
+                pos_hint:{'center_x':0.61, 'center_y': 0.5}
+                on_press: root.manager.current = 'recommend'
+            MDActionBottomAppBarButton:
+                icon: "history"
+                pos_hint:{'center_x':0.85, 'center_y': 0.5}
+                on_press:
+                    root.manager.current = 'history'
+                    app.book_history()
+
+
+
+
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {'center_y': 0.95}
+            user_font_size: "30sp"
+            theme_text_color: "Custom"
+            text_color: rgba(26,24,58,255)
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction = 'right'
+                root.manager.current = "home"
+                app.on_press_back_arrow()
+        AnchorLayout:
+            anchor_y: 'top'
+            BoxLayout:
+                orientation: 'vertical'
+                padding: "12dp", "12dp", "12dp", "12dp"
+                spacing: "0dp"
+                Widget: # Add a spacer to push the MDLabel down a bit
+                    size_hint_y: None
+                    height: "70dp"
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: '30dp'
+                    MDLabel:
+                        text: "Your Details"
+                        font_name: "BPoppins"
+                        font_size: "14sp"
+                        color: [0,0,0,1]
+                        size_hint_y: None
+                        height: self.texture_size[1]+50
+                        padding: "15dp"
+                        pos_hint: {'center_y': 0.85}
+                    MDFloatingActionButton:
+                        icon: 'account-edit'
+                        padding: "12dp"
+                        pos_hint: {'center_y': 0.85, 'center_x': 0.9}
+                        size_hint: 0.2,1
+                        on_release:
+                            root.manager.current = 'profile_edit'
+
+
+                ScrollView:
+                    MDList:
+                        spacing: "0dp"
+                        OneLineIconListItem:
+                            text: profile_name.text
+                            IconLeftWidget:
+                                icon: "account-outline"
+
+                        OneLineIconListItem:
+                            id : profile_email
+                            text: ""
+                            IconLeftWidget:
+                                icon: "email-outline"
+                        OneLineIconListItem:
+                            id : profile_prn
+                            text: ""
+                            IconLeftWidget:
+                                icon: "dialpad"
+                        OneLineIconListItem:
+                            id : profile_number
+                            text: ""
+                            IconLeftWidget:
+                                icon: "phone-outline"
+                MDLabel:
+                    text: "Other Details"
+                    font_name: "BPoppins"
+                    font_size: "14sp"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    padding: "12dp"
+                    pos_hint: {'center_y': 0.9}
+
+                ScrollView:
+                    MDList:
+                        spacing: "0dp"
+                        OneLineAvatarListItem:
+                            id : profile_branch
+                            text: ""
+                            ImageLeftWidget:
+                                source:'assets\\branch.png'
+                                size_hint: 2, .68
+                                pos: self.pos
+
+                        OneLineAvatarListItem:
+                            id : profile_semester
+                            text: ""
+                            ImageLeftWidget:
+                                source:'assets\\semister.png'
+                                size_hint: 2, .68
+                                pos: self.pos
+
+
+
+
+<HistoryScreen>:
+    MDFloatLayout:
+        orientation: 'vertical'
+        md_bd_color: 1,1,1,1
+        anchor_x: 'center'
+        anchor_y: 'center'
+        MDBottomAppBar:
+            height: "62dp"
+            elevation: 10
+            MDActionBottomAppBarButton:
+                icon: "home"
+                pos_hint:{'center_x':0.15, 'center_y': 0.5}
+                on_press: root.manager.current = 'home'
+            MDActionBottomAppBarButton:
+                icon: "cart-outline"
+                pos_hint:{'center_x':0.38, 'center_y': 0.5}
+                on_press: root.manager.current = 'borrow_book'
+            MDActionBottomAppBarButton:
+                icon: "thumb-up-outline"
+                pos_hint:{'center_x':0.61, 'center_y': 0.5}
+                on_press: root.manager.current = 'recommend'
+            MDActionBottomAppBarButton:
+                icon: "history"
+                pos_hint:{'center_x':0.85, 'center_y': 0.5}
+                on_press:
+                    root.manager.current = 'history'
+                    app.book_history()
+
+
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {'center_y': 0.95}
+            theme_text_color: "Custom"
+            text_color: rgba(26,24,58,255)
+            size_hint_x: None
+            width: 500
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction= 'right'
+                root.manager.current= "home"
+                app.on_press_back_arrow()
+
+        MDLabel:
+            text: "Reading Chronicle"
+            font_name: "BPoppins"
+            font_size: "24sp"
+            size_hint_x: None
+            width: 400
+            padding:"12dp"
+            pos_hint: {'center_x': 0.5,'center_y': 0.9}
+            color: rgba(0, 0, 59, 255)
+
+
+        MDLabel:
+            text: "Reflecting on Read and Returned"
+            font_name: "MPoppins"
+            font_size: "18sp"
+            size_hint_x: None
+            width: 400
+            padding:"12dp"
+            pos_hint: {'center_x': 0.5,'center_y': 0.85}
+            color: rgba(135, 133, 193, 255)
+
+        ScrollView:
+            size_hint: 1, None
+            height: self.parent.height - dp(150)
+            pos_hint: {'top':0.81}
+            MDList:
+                id : history_grid
+                padding: "1dp", "50dp", "12dp", "30dp"
+                spacing: "50dp"
+
+
+<RecommendScreen>:
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+
+        MDBottomAppBar:
+            height: "62dp"
+            elevation: 10
+            MDActionBottomAppBarButton:
+                icon: "home"
+                pos_hint:{'center_x':0.15, 'center_y': 0.5}
+                on_press: root.manager.current = 'home'
+            MDActionBottomAppBarButton:
+                icon: "cart-outline"
+                pos_hint:{'center_x':0.38, 'center_y': 0.5}
+                on_press: root.manager.current = 'borrow_book'
+            MDActionBottomAppBarButton:
+                icon: "thumb-up-outline"
+                pos_hint:{'center_x':0.61, 'center_y': 0.5}
+                on_press: root.manager.current = 'recommend'
+            MDActionBottomAppBarButton:
+                icon: "history"
+                pos_hint:{'center_x':0.85, 'center_y': 0.5}
+                on_press:
+                    root.manager.current = 'history'
+                    app.book_history()
+
+
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {'center_y': 0.95}
+            user_font_size: "30sp"
+            theme_text_color: "Custom"
+            text_color: rgba(26,24,58,255)
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction= 'right'
+                app.clear_text()
+                root.manager.current= "home"
+                app.on_press_back_arrow()
+
+        MDLabel:
+            text: "Discover Your Next Adventure!"
+            font_name: "BPoppins"
+            font_size: "24sp"
+            size_hint_x: None
+            width: 400
+            padding:"12dp"
+            pos_hint: {'center_x': 0.5,'center_y': 0.87}
+            color: rgba(0, 0, 59, 255)
+
+        MDTextField:
+            id: book_input
+            hint_text: 'Enter a Title...'
+            font_name: "MPoppins"
+            font_size: "15sp"
+            helper_text_mode: "on_focus"
+            icon_right: "search"
+            icon_color: app.theme_cls.primary_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.77}
+            size_hint_x: None
+            width: 335
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+
+        MDRaisedButton:
+            text: "Get Recommendations"
+            pos_hint: {"center_x": 0.5, "center_y": 0.67}
+            on_release: app.get_recommendations()
+
+        MDLabel:
+            id: rec_label
+            text: ""
+            halign: "center"
+            pos_hint: {"center_x": 0.5, "center_y": 0.4}
+
+        MDBoxLayout:
+            id : rec_grid
+            orientation:'vertical'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.367}
+            size_hint:(1,0.53)
+
+<SearchBookScreen>:
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+        MDBottomAppBar:
+            height: "62dp"
+            elevation: 10
+            MDActionBottomAppBarButton:
+                icon: "home"
+                pos_hint:{'center_x':0.15, 'center_y': 0.5}
+                on_press: root.manager.current = 'home'
+            MDActionBottomAppBarButton:
+                icon: "cart-outline"
+                pos_hint:{'center_x':0.38, 'center_y': 0.5}
+                on_press: root.manager.current = 'borrow_book'
+            MDActionBottomAppBarButton:
+                icon: "thumb-up-outline"
+                pos_hint:{'center_x':0.61, 'center_y': 0.5}
+                on_press: root.manager.current = 'recommend'
+            MDActionBottomAppBarButton:
+                icon: "history"
+                pos_hint:{'center_x':0.85, 'center_y': 0.5}
+                on_press:
+                    root.manager.current = 'history'
+                    app.book_history()
+
+
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {'center_y': 0.95}
+            user_font_size: "30sp"
+            theme_text_color: "Custom"
+            text_color: rgba(26,24,58,255)
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction= 'right'
+                app.clear_text()
+                root.manager.current= "home"
+                app.on_press_back_arrow()
+        MDLabel:
+            text: "Discover Your Next Adventure!"
+            font_name: "BPoppins"
+            font_size: "24sp"
+            size_hint_x: None
+            width: 400
+            padding:"12dp"
+            pos_hint: {'center_x': 0.5,'center_y': 0.87}
+            color: rgba(0, 0, 59, 255)
+
+        MDTextField:
+            id: search_field
+            hint_text: 'Search...'
+            font_name: "MPoppins"
+            font_size: "15sp"
+            helper_text_mode: "on_focus"
+            icon_right: "search"
+            icon_color: app.theme_cls.primary_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.77}
+            size_hint_x: None
+            width: 335
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+
+        MDBoxLayout:
+            id : search_grid
+            orientation:'vertical'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.415}
+            size_hint:(1,0.62)
+
+<ProfileEditScreen>:
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+        spacing: '5dp'
+        BoxLayout:
+            orientation: 'vertical'
+            MDTopAppBar:
+                title: "Edit your Details"
+                font_style: 'H5'
+                specific_text_color: [0, 0, 0, 1]
+                halign: 'center'
+                elevation: 0
+                md_bg_color: [1,1,1,1]
+                spacing: "2dp"
+            Widget:
+
+        MDBottomAppBar:
+            height: "62dp"
+            elevation: 10
+            MDActionBottomAppBarButton:
+                icon: "home"
+                pos_hint:{'center_x':0.15, 'center_y': 0.5}
+                on_press: root.manager.current = 'home'
+            MDActionBottomAppBarButton:
+                icon: "cart-outline"
+                pos_hint:{'center_x':0.38, 'center_y': 0.5}
+                on_press: root.manager.current = 'borrow_book'
+            MDActionBottomAppBarButton:
+                icon: "thumb-up-outline"
+                pos_hint:{'center_x':0.61, 'center_y': 0.5}
+                on_press: root.manager.current = 'recommend'
+            MDActionBottomAppBarButton:
+                icon: "history"
+                pos_hint:{'center_x':0.85, 'center_y': 0.5}
+                on_press:
+                    root.manager.current = 'history'
+                    app.book_history()
+
+
+
+
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {'center_y': 0.95}
+            user_font_size: "30sp"
+            theme_text_color: "Custom"
+            text_color: rgba(26,24,58,255)
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction= 'right'
+                root.manager.current= "profile"
+                app.on_press_back_arrow()
+                app.secure_profile()
+
+        MDLabel:
+            text: "Name"
+            color: rgba(0, 0, 0, 255)
+            font_name: "BPoppins"
+            font_size: '15sp'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.90}
+            size_hint_x: None
+            width: 335
+        MDLabel:
+            text: "PRN"
+            color: rgba(0, 0, 0, 255)
+            font_name: "BPoppins"
+            font_size: '15sp'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.78}
+            size_hint_x: None
+            width: 335
+        MDLabel:
+            text: "Email"
+            color: rgba(0, 0, 0, 255)
+            font_name: "BPoppins"
+            font_size: '15sp'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.66}
+            size_hint_x: None
+            width: 335
+        MDLabel:
+            text: "Phone Number"
+            color: rgba(0, 0, 0, 255)
+            font_name: "BPoppins"
+            font_size: '15sp'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.54}
+            size_hint_x: None
+            width: 335
+        MDLabel:
+            text: "Branch"
+            color: rgba(0, 0, 0, 255)
+            font_name: "BPoppins"
+            font_size: '15sp'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.42}
+            size_hint_x: None
+            width: 335
+        MDLabel:
+            text: "Semester"
+            color: rgba(0, 0, 0, 255)
+            font_name: "BPoppins"
+            font_size: '15sp'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.30}
+            size_hint_x: None
+            width: 335
+
+
+        MDTextField:
+            id: edit_name
+            text: ""
+            hint_text: "Enter Name*"
+            font_name: "MPoppins"
+            font_size: "15sp"
+            helper_text: "Provide your fullname"
+            helper_text_mode: "on_focus"
+            icon_right: "alphabetical"
+            icon_color: app.theme_cls.primary_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.8425}
+            size_hint_x: None
+            width: 335
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            canvas.before:
+                Color:
+                    rgb: rgba(127, 127, 127, 255)
+                Line:
+                    width: 0.5
+                    rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+
+
+        MDTextField:
+            id: edit_prn
+            text: ""
+            hint_text: "Provide your PRN*"
+            font_name: "MPoppins"
+            font_size: "15sp"
+            helper_text: "unable to change prn directly"
+            helper_text_mode: "on_focus"
+            readonly: True
+            icon_right: "dialpad"
+            input_filter: 'int'
+            max_text_length: 8
+            icon_color: app.theme_cls.primary_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.7225}
+            size_hint_x: None
+            width: 335
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            canvas.before:
+                Color:
+                    rgb: rgba(127, 127, 127, 255)
+                Line:
+                    width: 0.5
+                    rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+        MDTextField:
+            id: edit_email
+            text: ""
+            hint_text: "Provide Email-id*"
+            font_name: "MPoppins"
+            font_size: "15sp"
+            readonly: True
+            helper_text: "unable to change email directly"
+            helper_text_mode: "on_focus"
+            icon_right: "email-arrow-left"
+            min_text_length: 11
+            icon_color: app.theme_cls.primary_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.6025}
+            size_hint_x: None
+            width: 335
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            canvas.before:
+                Color:
+                    rgb: rgba(127, 127, 127, 255)
+                Line:
+                    width: 0.5
+                    rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+
+        MDTextField:
+            id:edit_no
+            text: ""
+            hint_text: "Enter WhatsApp Number*"
+            font_name: "MPoppins"
+            font_size: "15sp"
+            readonly: True
+            helper_text: "unable to change number directly"
+            helper_text_mode: "on_focus"
+            icon_right: "whatsapp"
+            icon_color: app.theme_cls.primary_color
+            input_filter: 'int'
+            max_text_length: 10
+            pos_hint: {"center_x": 0.5, "center_y": 0.4825}
+            size_hint_x: None
+            width: 335
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            canvas.before:
+                Color:
+                    rgb: rgba(127, 127, 127, 255)
+                Line:
+                    width: 0.5
+                    rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+
+        MDTextField:
+            id: edit_branch
+            text: ""
+            hint_text: "Branch*"
+            font_name: "MPoppins"
+            font_size: "15sp"
+            helper_text: "Provide your Branch"
+            helper_text_mode: "on_focus"
+            icon_right: "source-branch"
+            min_text_length: 11
+            icon_color: app.theme_cls.primary_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.3625}
+            size_hint_x: None
+            width: 335
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            canvas.before:
+                Color:
+                    rgb: rgba(127, 127, 127, 255)
+                Line:
+                    width: 0.5
+                    rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+
+        MDTextField:
+            id: edit_sem
+            text: ""
+            hint_text: "Semester*"
+            font_name: "MPoppins"
+            font_size: "15sp"
+            helper_text: "Provide your semester like I,II,III only*"
+            helper_text_mode: "on_focus"
+            icon_right: "roman-numeral-2"
+            min_text_length: 11
+            icon_color: app.theme_cls.primary_color
+            pos_hint: {"center_x": 0.5, "center_y": 0.2425}
+            size_hint_x: None
+            width: 335
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            canvas.before:
+                Color:
+                    rgb: rgba(127, 127, 127, 255)
+                Line:
+                    width: 0.5
+                    rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+
+        Button:
+            text: "Save Profile & Continue"
+            font_name: "BPoppins"
+            size_hint: 0.66, 0.065
+            pos_hint: {'center_x': 0.5, 'center_y': 0.17}
+            background_color: 0,0,0,0
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction = "up"
+                app.edit_profile()
+                app.secure_profile()
+
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 0, 231, 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [25]
+
+        MDTextButton:
+            id : edit_private_credential_butn
+            text: "Do you want edit prn/email/No."
+            pos_hint: {'center_x': 0.5, 'center_y': 0.12}
+            color: rgba(68,78,132,255)
+            font_name: "BPoppins"
+            font_size: '13sp'
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction= "down"
+                app.send_otp(edit_no.text)
+                app.otp_button_fun("1")
+                root.manager.current="otp"
+
+<NotificationScreen>:
+    MDFloatLayout:
+        md_bg_color: 1,1,1,1
+        MDBottomAppBar:
+            height: "62dp"
+            elevation: 10
+            MDActionBottomAppBarButton:
+                icon: "home"
+                pos_hint:{'center_x':0.15, 'center_y': 0.5}
+                on_press: root.manager.current = 'home'
+            MDActionBottomAppBarButton:
+                icon: "cart-outline"
+                pos_hint:{'center_x':0.38, 'center_y': 0.5}
+                on_press: root.manager.current = 'borrow_book'
+            MDActionBottomAppBarButton:
+                icon: "thumb-up-outline"
+                pos_hint:{'center_x':0.61, 'center_y': 0.5}
+                on_press: root.manager.current = 'recommend'
+            MDActionBottomAppBarButton:
+                icon: "history"
+                pos_hint:{'center_x':0.85, 'center_y': 0.5}
+                on_press:
+                    root.manager.current = 'history'
+                    app.book_history()
+
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {'center_y': 0.95}
+            user_font_size: "30sp"
+            theme_text_color: "Custom"
+            text_color: rgba(26,24,58,255)
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction= 'right'
+                root.manager.current= "home"
+                app.on_press_back_arrow()
+        MDTextButton:
+            id : profile_edit
+            text: "All Notifications"
+            font_name: "RPac"
+            font_size: "18sp"
+            pos_hint: {'center_x': 0.62,'center_y': 0.95}
+            color: rgba(1,1,1, 255)
+            background_color: rgba(0,0,0,255)
+
+<BorrowBookScreen>:
+    MDFloatLayout:
+        orientation: 'vertical'
+        md_bd_color: 1,1,1,1
+        anchor_x: 'center'
+        anchor_y: 'center'
+        MDBottomAppBar:
+            height: "62dp"
+            elevation: 10
+            MDActionBottomAppBarButton:
+                icon: "home"
+                pos_hint:{'center_x':0.15, 'center_y': 0.5}
+                on_press: root.manager.current = 'home'
+            MDActionBottomAppBarButton:
+                icon: "cart-outline"
+                pos_hint:{'center_x':0.38, 'center_y': 0.5}
+                on_press: root.manager.current = 'borrow_book'
+            MDActionBottomAppBarButton:
+                icon: "thumb-up-outline"
+                pos_hint:{'center_x':0.61, 'center_y': 0.5}
+                on_press: root.manager.current = 'recommend'
+            MDActionBottomAppBarButton:
+                icon: "history"
+                pos_hint:{'center_x':0.85, 'center_y': 0.5}
+                on_press:
+                    root.manager.current = 'history'
+                    app.book_history()
+
+
+
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {'center_y': 0.95}
+            theme_text_color: "Custom"
+            text_color: rgba(26,24,58,255)
+            size_hint_x: None
+            width: 500
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction= 'right'
+                root.manager.current= "home"
+                app.on_press_back_arrow()
+
+        MDLabel:
+            text: "Want to read Book?"
+            font_name: "BPoppins"
+            font_size: "26sp"
+            size_hint_x: None
+            width: 400
+            padding:"12dp"
+            pos_hint: {'center_x': 0.5,'center_y': 0.85}
+            color: rgba(0, 0, 59, 255)
+
+
+        MDLabel:
+            text: "That's Good. Then borrow it!"
+            font_name: "MPoppins"
+            font_size: "18sp"
+            size_hint_x: None
+            width: 400
+            padding:"12dp"
+            pos_hint: {'center_x': 0.5,'center_y': 0.8}
+            color: rgba(135, 133, 193, 255)
+
+        MDLabel:
+            text: "Provide ISBN number of Book and get book for 10 days! "
+            font_name: "MPoppins"
+            font_size: "13sp"
+            size_hint_y: 0.8
+            size_hint_x: None
+            width: 400
+            padding:"12dp"
+            pos_hint: {'center_x': 0.5,'center_y': 0.65}
+            color: rgba(135, 133, 193, 255)
+
+
+        MDTextField:
+            id: isbn
+            text : ""
+            hint_text: "ISBN number"
+            font_name: "MPoppins"
+            font_size: "15sp"
+            helper_text_mode: "on_focus"
+            icon_right: "book"
+            icon_color: app.theme_cls.primary_color
+            max_text_length: 13
+            pos_hint: {"center_x": 0.5, "center_y": 0.55}
+            size_hint_x: None
+            width: 350
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            canvas.before:
+                Color:
+                    rgb: rgba(127, 127, 127, 255)
+                Line:
+                    width: 0.5
+                    rounded_rectangle: self.x-5, self.y+20, self.width+10, self.height-25, 10,10,10,10,100
+        Button:
+            text: "Get Book"
+            font_name: "BPoppins"
+            size_hint_y: 0.065
+            size_hint_x: None
+            width: 350
+            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+            background_color: 0,0,0,0
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release: app.get_book(isbn.text)
+            canvas.before:
+                Color:
+                    rgb: rgba(52, 0, 231, 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [10]
+
+
+
+<ReturnBookScreen>:
+    MDFloatLayout:
+        orientation: 'vertical'
+        md_bd_color: 1,1,1,1
+        anchor_x: 'center'
+        anchor_y: 'center'
+        MDBottomAppBar:
+            height: "62dp"
+            elevation: 10
+            MDActionBottomAppBarButton:
+                icon: "home"
+                pos_hint:{'center_x':0.15, 'center_y': 0.5}
+                on_release:
+                    root.manager.transition.direction= 'right'
+                    root.manager.current= "home"
+            MDActionBottomAppBarButton:
+                icon: "cart-outline"
+                pos_hint:{'center_x':0.38, 'center_y': 0.5}
+                on_press: root.manager.current = 'borrow_book'
+            MDActionBottomAppBarButton:
+                icon: "thumb-up-outline"
+                pos_hint:{'center_x':0.61, 'center_y': 0.5}
+                on_press: root.manager.current = 'recommend'
+            MDActionBottomAppBarButton:
+                icon: "history"
+                pos_hint:{'center_x':0.85, 'center_y': 0.5}
+                on_press:
+                    root.manager.current = 'history'
+                    app.book_history()
+
+
+
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {'center_y': 0.95}
+            theme_text_color: "Custom"
+            text_color: rgba(26,24,58,255)
+            size_hint_x: None
+            width: 500
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction= 'right'
+                root.manager.current= "home"
+
+        MDLabel:
+            text: "Done reading the Book?"
+            font_name: "BPoppins"
+            font_size: "24sp"
+            size_hint_x: None
+            width: 400
+            padding:"12dp"
+            pos_hint: {'center_x': 0.5,'center_y': 0.9}
+            color: rgba(0, 0, 59, 255)
+
+
+        MDLabel:
+            text: "Return, recharge, and read on!"
+            font_name: "MPoppins"
+            font_size: "18sp"
+            size_hint_x: None
+            width: 400
+            padding:"12dp"
+            pos_hint: {'center_x': 0.5,'center_y': 0.85}
+            color: rgba(135, 133, 193, 255)
+
+        ScrollView:
+            size_hint: 1, None
+            height: self.parent.height - dp(150)
+            pos_hint: {'top':0.81}
+            MDList:
+                id : image_label_grid
+                padding: "1dp", "50dp", "12dp", "30dp"
+                spacing: "50dp"
+
+
+<RenewBookScreen>:
+    MDFloatLayout:
+        orientation: 'vertical'
+        md_bd_color: 1,1,1,1
+        anchor_x: 'center'
+        anchor_y: 'center'
+        MDBottomAppBar:
+            height: "62dp"
+            elevation: 10
+            MDActionBottomAppBarButton:
+                icon: "home"
+                pos_hint:{'center_x':0.15, 'center_y': 0.5}
+                on_press: root.manager.current = 'home'
+            MDActionBottomAppBarButton:
+                icon: "cart-outline"
+                pos_hint:{'center_x':0.38, 'center_y': 0.5}
+                on_press: root.manager.current = 'borrow_book'
+            MDActionBottomAppBarButton:
+                icon: "thumb-up-outline"
+                pos_hint:{'center_x':0.61, 'center_y': 0.5}
+                on_press: root.manager.current = 'recommend'
+            MDActionBottomAppBarButton:
+                icon: "history"
+                pos_hint:{'center_x':0.85, 'center_y': 0.5}
+                on_press:
+                    root.manager.current = 'history'
+                    app.book_history()
+
+
+
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {'center_y': 0.95}
+            theme_text_color: "Custom"
+            text_color: rgba(26,24,58,255)
+            size_hint_x: None
+            width: 500
+            on_touch_down: app.change_cursor(True)
+            on_touch_up: app.change_cursor(False)
+            on_release:
+                root.manager.transition.direction= 'right'
+                root.manager.current= "home"
+
+        MDLabel:
+            text: "Keep the Story Alive!"
+            font_name: "BPoppins"
+            font_size: "24sp"
+            size_hint_x: None
+            width: 400
+            padding:"12dp"
+            pos_hint: {'center_x': 0.5,'center_y': 0.9}
+            color: rgba(0, 0, 59, 255)
+
+
+        MDLabel:
+            text: "Keep reading, keep growing.!"
+            font_name: "MPoppins"
+            font_size: "18sp"
+            size_hint_x: None
+            width: 400
+            padding:"12dp"
+            pos_hint: {'center_x': 0.5,'center_y': 0.85}
+            color: rgba(135, 133, 193, 255)
+
+        ScrollView:
+            size_hint: 1, None
+            height: self.parent.height - dp(150)
+            pos_hint: {'top':0.81}
+            MDList:
+                id : renew_grid
+                padding: "1dp", "50dp", "12dp", "30dp"
+                spacing: "50dp"
