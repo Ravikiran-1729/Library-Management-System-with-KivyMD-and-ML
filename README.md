@@ -47,9 +47,9 @@ All screenshots are organized by flow. Below are visual previews of each feature
 ---
 
 ### 🔐 1. Sign In / Sign Up Flow
- ![Step 1.0](Screenshots/1.SignIn_Up_SS/Step_1.0.png)
- ![Step 2.0 (Login)](Screenshots/1.SignIn_Up_SS/Step_2.0(LOGIN).png)
- ![Step 2.0 (SignUp)](Screenshots/1.SignIn_Up_SS/Step_2.0(SignUp).png)
+- ![Step 1.0](Screenshots/1.SignIn_Up_SS/Step_1.0.png)
+- ![Step 2.0 (Login)](Screenshots/1.SignIn_Up_SS/Step_2.0(LOGIN).png)
+- ![Step 2.0 (SignUp)](Screenshots/1.SignIn_Up_SS/Step_2.0(SignUp).png)
 
 ---
 
