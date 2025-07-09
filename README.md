@@ -93,8 +93,6 @@ All screenshots are organized by flow. Below are visual previews of each feature
 ---
 
 ### ♻️ 8. Renew Books
-- ![Renew Step 1.0](Screenshots/8.Renew_Book_SS/Step_1.0.png)
-- ![Renew Step 1.1](Screenshots/8.Renew_Book_SS/Step_1.1.png)
 - ![Renew Step 2.0](Screenshots/8.Renew_Book_SS/Step_2.0.png)
 
 ---
